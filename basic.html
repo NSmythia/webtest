@@ -17,18 +17,17 @@ ctx.strokeStyle = "black";
 ctx.fillRect(50, 50, 150, 80);
 ctx.stroke();
 </script>
-<p id="demo"></p>
+<p id="xy"></p>
 <script>
     function myFunction(event) {
-    var b = document.getElementById("body");
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     ctx.clearRect(0,0,c.width,c.height);
     var x = event.touches[0].clientX;
     var y = event.touches[0].clientY;
     c.style.left=(x-(c.width/2))+"px";
-    c.style.top=(y-b.style.top-(c.height/2))+"px";
-    document.getElementById("demo").innerHTML = x + ", " + y;
+    c.style.top=(y-(c.height/2))+"px";
+    document.getElementById("xy").innerHTML = x + ", " + y;
     ctx.fillRect(50, 50, 150, 80);
     }
     </script>
