@@ -3,37 +3,57 @@
 <header> HELLO WORLD </header>
 <body id="body" style="background-color: aqua; position:relative">
 <p id="demo"></p>
-<script>
-    document.getElementById("demo").innerHTML = "My First JavaScript";
-</script>
-<p id="xy"></p>
-<script>
-    document.getElementById("xy").innerHTML = "x/y coordinates will appear here when you drag a rectangle";
-</script>
-<canvas id="myCanvas" 
-style="border:1px solid #d3d3d3; background-color:darkblue; position:absolute" ontouchmove="myFunction(event)">
+<p id="info"></p>
+<canvas id=0 
+style="border:1px solid #d3d3d3; background-color:black; position:absolute" 
+ontouchmove="move(event,a=0)" ontouchend="display(event,b=0)">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+    <canvas id=1 
+style="border:1px solid #d3d3d3; background-color:darkblue; position:absolute" 
+ontouchmove="move(event,a=1)" ontouchend="display(event,b=1)">
     Your browser does not support the HTML5 canvas tag.</canvas>
 <script>
-var c = document.getElementById("myCanvas");
+//display initial text
+document.getElementById("demo").innerHTML = "My First JavaScript";
+document.getElementById("info").innerHTML = "name and info will appear here when you stop touching a rectangle and x/y coordinates will appear here when you drag a rectangle";
+//set up canvas
+var c = document.getElementById(0);
 c.width = window.innerWidth*0.10;
 c.height = window.innerHeight*0.10;
 var ctx = c.getContext("2d");
 ctx.beginPath();
-ctx.lineWidth = "10";
 ctx.strokeStyle = "black";
+ctx.fillStyle = "gold";
 ctx.fillRect(0.1*c.width, 0.1*c.height, c.width*0.8, c.height*0.8);
 ctx.stroke();
-</script>
+//second canvas
+var c2 = document.getElementById(1);
+c2.width = window.innerWidth*0.10;
+c2.height = window.innerHeight*0.10;
+c2.style.left = c.style.left + c.width*1.5 +"px";
+c2.style.top = c.style.top +"px";
+var ctx2 = c2.getContext("2d");
+ctx2.beginPath();
+ctx2.strokeStyle = "black";
+ctx2.fillRect(0.1*c.width, 0.1*c.height, c.width*0.8, c.height*0.8);
+ctx2.stroke();
+//name and grades of our example "class"
+let names = ['Alice', 'Bob'];
+let gradeMap = new Map;
+gradeMap.set(names[0],'A');
+gradeMap.set(names[1],'B');
 
-<script>
-    function myFunction(event) {
-    var c = document.getElementById("myCanvas");
+    function move(event,a) {
+    var c = document.getElementById(a);
     var ctx = c.getContext("2d");
     var x = event.touches[0].clientX;
     var y = event.touches[0].clientY;
     c.style.left=(x-(c.width/2))+"px";
     c.style.top=(y-(c.height/2))+"px";
-    document.getElementById("xy").innerHTML = x + ", " + y;
+    document.getElementById("info").innerHTML = x + ", " + y + ", " + a;
+    }
+    function display(event,b){
+        document.getElementById("info").innerHTML = "name: " + names[b] + ", grade: " + gradeMap.get(names[b]);
     }
     </script>
 </body>
